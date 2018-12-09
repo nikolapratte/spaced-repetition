@@ -128,10 +128,7 @@ def archiver(): #archives things that have been reviewed more than 4 times
             thingsToDelete.append(thing)
             archivedObject[thing] = reviewListObject[thing]
     for thing in thingsToDelete:
-        print(thing)
-        print(reviewListObject)
         del reviewListObject[thing]
-        print(reviewListObject)
             
 def checkIsItTimeToReview(array): #returns true/false on whether or not the review day for a study topic has been passed. Specific to the array format set by setReview().
     absoluteDaysCurrent = 0
