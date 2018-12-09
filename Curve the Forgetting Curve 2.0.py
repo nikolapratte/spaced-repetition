@@ -122,10 +122,16 @@ def printListObject(Object): #prints either reviewListObject or archivedObject i
     ORDER THE LIST BY CLOSEST TO PRESENT DAY TO FARTHEST FROM PRESENT DAY
     """
 def archiver(): #archives things that have been reviewed more than 4 times
+    thingsToDelete = []
     for thing in reviewListObject:
         if reviewListObject[thing][1] >= 5:
+            thingsToDelete.append(thing)
             archivedObject[thing] = reviewListObject[thing]
-            del reviewListObject[thing]
+    for thing in thingsToDelete:
+        print(thing)
+        print(reviewListObject)
+        del reviewListObject[thing]
+        print(reviewListObject)
             
 def checkIsItTimeToReview(array): #returns true/false on whether or not the review day for a study topic has been passed. Specific to the array format set by setReview().
     absoluteDaysCurrent = 0
@@ -199,8 +205,11 @@ while(userChoice != 'Q' and userChoice != 'Q!'): #start of the operations that t
             if thingReviewed in reviewListObject: #check if number is in reviewListObject
                 if checkIsItTimeToReview(reviewListObject[thingReviewed]): #check if number should be reviewed yet
                     reviewListObject[thingReviewed][1] += 1
-                    reviewListObject[thingReviewed] = setReview(reviewListObject[thingReviewed][0], reviewListObject[thingReviewed][1], currentDate[0], currentDate[1], currentDate[2])
-                    print(reviewListObject[thingReviewed][0], 'has been updated!')
+                    if reviewListObject[thingReviewed][1] <= 4:
+                        reviewListObject[thingReviewed] = setReview(reviewListObject[thingReviewed][0], reviewListObject[thingReviewed][1], currentDate[0], currentDate[1], currentDate[2])
+                        print(reviewListObject[thingReviewed][0], 'has been updated!')
+                    else:
+                        print(reviewListObject[thingReviewed][0], 'has been updated!')
                 else:
                     print('You aren\'t supposed to review that yet!')
             else:
